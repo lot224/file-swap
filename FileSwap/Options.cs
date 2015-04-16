@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.Web.Administration;
 using Newtonsoft.Json;
 
 namespace lot224.FileSwap {
@@ -28,10 +29,16 @@ namespace lot224.FileSwap {
             set { files = value; }
         }
 
-        public string current = string.Empty;
+        private string current = string.Empty;
         public string Current {
             get { return current; }
             set { current = value; }
+        }
+
+        private bool recycleAppPools = false;
+        public bool RecycleAppPools {
+            get { return recycleAppPools; }
+            set { recycleAppPools = value; }
         }
 
         [Browsable(false)]

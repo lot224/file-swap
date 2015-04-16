@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using System.Collections.Generic;
+using Microsoft.Web.Administration;
 
 namespace lot224.FileSwap {
 
@@ -81,6 +82,16 @@ namespace lot224.FileSwap {
                             } else if(vIn != options.Current) {
                                 options.SwapFile(vIn);
                                 log(string.Format("Updated {0} to {1}", options.MasterFile, vIn));
+                                if (options.RecycleAppPools) {
+                                    ServerManager serverManager = new ServerManager();
+                                    ApplicationPoolCollection appPools = serverManager.ApplicationPools;
+                                    foreach (ApplicationPool ap in appPools) {
+                                        if (ap.WorkerProcesses.Count > 0) {
+                                            ap.Recycle();
+                                            log(string.Format("Recycled ({0}) App Pool.", ap.Name));
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

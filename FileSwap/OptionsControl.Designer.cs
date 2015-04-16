@@ -41,6 +41,7 @@
             this.txtMaster = new System.Windows.Forms.TextBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.bntSave = new System.Windows.Forms.Button();
+            this.chkRecycleAppPools = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // imgList
@@ -61,7 +62,7 @@
             this.bntFind.Name = "bntFind";
             this.bntFind.Size = new System.Drawing.Size(26, 22);
             this.bntFind.TabIndex = 30;
-            this.toolTip.SetToolTip(this.bntFind, "The file to use when selected in the dropdown.");
+            this.toolTip.SetToolTip(this.bntFind, "The file containing the content to be swapped into the master file.");
             this.bntFind.UseVisualStyleBackColor = true;
             this.bntFind.Click += new System.EventHandler(this.bntFind_Click);
             // 
@@ -87,7 +88,7 @@
             this.lblFile.Size = new System.Drawing.Size(26, 13);
             this.lblFile.TabIndex = 28;
             this.lblFile.Text = "File:";
-            this.toolTip.SetToolTip(this.lblFile, "The location of the file to copy the content into the master file when selected.");
+            this.toolTip.SetToolTip(this.lblFile, "The file containing the content to be swapped into the master file.");
             // 
             // txtFile
             // 
@@ -98,7 +99,7 @@
             this.txtFile.Name = "txtFile";
             this.txtFile.Size = new System.Drawing.Size(345, 20);
             this.txtFile.TabIndex = 27;
-            this.toolTip.SetToolTip(this.txtFile, "The location of the file to copy the content into the master file when selected.");
+            this.toolTip.SetToolTip(this.txtFile, "The file containing the content to be swapped into the master file.");
             this.txtFile.TextChanged += new System.EventHandler(this.txtFile_TextChanged);
             // 
             // lblName
@@ -149,8 +150,8 @@
             this.lstView.Name = "lstView";
             this.lstView.Size = new System.Drawing.Size(585, 348);
             this.lstView.TabIndex = 23;
-            this.toolTip.SetToolTip(this.lstView, "A listing of all files and there respective paths to be displayed in the dropdown" +
-        ".");
+            this.toolTip.SetToolTip(this.lstView, "A listing of all friendly names and there respective paths to be displayed in the" +
+        " dropdown.");
             this.lstView.UseCompatibleStateImageBehavior = false;
             this.lstView.View = System.Windows.Forms.View.Details;
             this.lstView.SelectedIndexChanged += new System.EventHandler(this.lstView_SelectedIndexChanged);
@@ -174,6 +175,8 @@
             this.lblFiles.TabIndex = 22;
             this.lblFiles.Text = "Files:";
             this.lblFiles.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip.SetToolTip(this.lblFiles, "A listing of all friendly names and there respective paths to be displayed in the" +
+        " dropdown.");
             // 
             // lblMaster
             // 
@@ -185,8 +188,7 @@
             this.lblMaster.TabIndex = 31;
             this.lblMaster.Text = "Master:";
             this.lblMaster.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolTip.SetToolTip(this.lblMaster, "This is the name of the file that will contain the contents of the selected file." +
-        "");
+            this.toolTip.SetToolTip(this.lblMaster, "This is the master file that will contain the swapped content.");
             // 
             // txtMaster
             // 
@@ -197,8 +199,7 @@
             this.txtMaster.Name = "txtMaster";
             this.txtMaster.Size = new System.Drawing.Size(553, 20);
             this.txtMaster.TabIndex = 32;
-            this.toolTip.SetToolTip(this.txtMaster, "This is the name of the file that will contain the contents of the selected file." +
-        "");
+            this.toolTip.SetToolTip(this.txtMaster, "This is the master file that will contain the swapped content.");
             this.txtMaster.Leave += new System.EventHandler(this.txtMaster_Leave);
             // 
             // bntSave
@@ -214,10 +215,24 @@
             this.bntSave.UseVisualStyleBackColor = true;
             this.bntSave.Click += new System.EventHandler(this.bntSave_Click);
             // 
+            // chkRecycleAppPools
+            // 
+            this.chkRecycleAppPools.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkRecycleAppPools.AutoSize = true;
+            this.chkRecycleAppPools.Location = new System.Drawing.Point(61, 421);
+            this.chkRecycleAppPools.Name = "chkRecycleAppPools";
+            this.chkRecycleAppPools.Size = new System.Drawing.Size(176, 17);
+            this.chkRecycleAppPools.TabIndex = 34;
+            this.chkRecycleAppPools.Text = "Recycle app pools on file swap.";
+            this.toolTip.SetToolTip(this.chkRecycleAppPools, "If checked, when a swap occurs, all active worker processes will be recycled.");
+            this.chkRecycleAppPools.UseVisualStyleBackColor = true;
+            this.chkRecycleAppPools.CheckedChanged += new System.EventHandler(this.chkRecycleAppPools_CheckedChanged);
+            // 
             // OptionsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.chkRecycleAppPools);
             this.Controls.Add(this.bntSave);
             this.Controls.Add(this.txtMaster);
             this.Controls.Add(this.lblMaster);
@@ -257,5 +272,6 @@
         private System.Windows.Forms.TextBox txtMaster;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button bntSave;
+        private System.Windows.Forms.CheckBox chkRecycleAppPools;
     }
 }

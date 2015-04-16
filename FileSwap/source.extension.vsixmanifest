@@ -1,9 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="176037d5-fb02-4fc2-b601-598159fe71d2" Version="1.0" Language="en-US" Publisher="lot224" />
+    <Identity Id="176037d5-fb02-4fc2-b601-598159fe71d2" Version="1.1" Language="en-US" Publisher="lot224" />
     <DisplayName>FileSwap</DisplayName>
     <Description>A visual studio addon that swaps content from one file to a master file (Useful for multiple .config file's)</Description>
+    <MoreInfo>https://github.com/lot224/file-swap</MoreInfo>
+    <License>LICENSE</License>
+    <ReleaseNotes>README.md</ReleaseNotes>
+    <Icon>logo-180x180.png</Icon>
+    <PreviewImage>logo-180x180.png</PreviewImage>
+    <Tags >.config</Tags>
   </Metadata>
   <Installation InstalledByMsi="false">
     <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0]" />

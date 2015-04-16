@@ -20,6 +20,7 @@ namespace lot224.FileSwap {
 
         public void Initialize() {
             txtMaster.Text = options.MasterFile;
+            chkRecycleAppPools.Checked = options.RecycleAppPools;
             ListItems();
         }
 
@@ -38,7 +39,7 @@ namespace lot224.FileSwap {
             sfd.DefaultExt = ".config";
             sfd.FileName = txtMaster.Text;
             sfd.Filter = "Config files *.config|*.config";
-            sfd.OverwritePrompt = true;
+            sfd.OverwritePrompt = false;
 
             if (sfd.ShowDialog() == DialogResult.OK) {
                 options.MasterFile = txtMaster.Text = sfd.FileName;
@@ -122,6 +123,10 @@ namespace lot224.FileSwap {
             Items.Remove(name);
             bntDelete.Enabled = false;
             ListItems();
+        }
+
+        private void chkRecycleAppPools_CheckedChanged(object sender, EventArgs e) {
+            options.RecycleAppPools = chkRecycleAppPools.Checked;
         }
     }
 }
