@@ -94,6 +94,7 @@
             this.txtFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFile.Location = new System.Drawing.Point(237, 39);
+            this.txtFile.MaxLength = 255;
             this.txtFile.Name = "txtFile";
             this.txtFile.Size = new System.Drawing.Size(345, 20);
             this.txtFile.TabIndex = 27;
@@ -114,6 +115,7 @@
             // txtName
             // 
             this.txtName.Location = new System.Drawing.Point(61, 39);
+            this.txtName.MaxLength = 25;
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(138, 20);
             this.txtName.TabIndex = 25;
@@ -141,6 +143,7 @@
             this.lstView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chName,
             this.chFile});
+            this.lstView.FullRowSelect = true;
             this.lstView.Location = new System.Drawing.Point(61, 66);
             this.lstView.MultiSelect = false;
             this.lstView.Name = "lstView";
@@ -160,6 +163,7 @@
             // chFile
             // 
             this.chFile.Text = "File";
+            this.chFile.Width = 467;
             // 
             // lblFiles
             // 
@@ -189,6 +193,7 @@
             this.txtMaster.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMaster.Location = new System.Drawing.Point(61, 13);
+            this.txtMaster.MaxLength = 255;
             this.txtMaster.Name = "txtMaster";
             this.txtMaster.Size = new System.Drawing.Size(553, 20);
             this.txtMaster.TabIndex = 32;

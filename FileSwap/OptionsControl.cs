@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace lot224.FileSwap {
     public partial class OptionsControl : UserControl {
@@ -20,6 +21,15 @@ namespace lot224.FileSwap {
         public void Initialize() {
             txtMaster.Text = options.MasterFile;
             ListItems();
+        }
+
+        private Dictionary<string, string> items = null;
+        public Dictionary<string, string> Items {
+            get {
+                if (items == null)
+                    items = options.jsonToDictionary(options.Files);
+                return items;
+            }
         }
 
         private void bntSave_Click(object sender, EventArgs e) {
@@ -43,6 +53,12 @@ namespace lot224.FileSwap {
         private void txtMaster_Leave(object sender, EventArgs e) {
             FileInfo fi = new FileInfo(txtMaster.Text);
             options.MasterFile = fi.FullName;
+
+            BinaryFormatter bf = new BinaryFormatter();
+            using (MemoryStream ms = new MemoryStream()) {
+                bf.Serialize(ms, fi.FullName);
+                //options.Berger = Convert.ToBase64String(ms.ToArray());
+            }
         }
 
         private void txtName_TextChanged(object sender, EventArgs e) {
@@ -66,7 +82,7 @@ namespace lot224.FileSwap {
 
         private void bntAdd_Click(object sender, EventArgs e) {
 
-            foreach (string key in options.Files.Keys) {
+            foreach (string key in Items.Keys) {
                 if (key.ToLower() == txtName.Text.Trim().ToLower()) {
                     MessageBox.Show(string.Format("Can not add item, the name ({0}) already exists in the collection.", txtName.Text.Trim()), "Error adding item.");
                     return;
@@ -79,16 +95,19 @@ namespace lot224.FileSwap {
                 return;
             }
 
-            options.Files.Add(txtName.Text.Trim(), fi.FullName);
+
+            Items.Add(txtName.Text.Trim(), fi.FullName);
+            txtName.Text = txtFile.Text = string.Empty;
+            bntAdd.Enabled = false;
             ListItems();
         }
 
         private void ListItems() {
             lstView.Items.Clear();
-            foreach (string key in options.Files.Keys) {
-                if (File.Exists(options.Files[key]) == true) {
+            foreach (string key in Items.Keys) {
+                if (File.Exists(Items[key]) == true) {
                     ListViewItem lvi = new ListViewItem(key);
-                    lvi.SubItems.Add(options.Files[key]);
+                    lvi.SubItems.Add(Items[key]);
                     lstView.Items.Add(lvi);
                 }
             }
@@ -100,7 +119,7 @@ namespace lot224.FileSwap {
 
         private void bntDelete_Click(object sender, EventArgs e) {
             string name = lstView.SelectedItems[0].Text;
-            options.Files.Remove(name);
+            Items.Remove(name);
             bntDelete.Enabled = false;
             ListItems();
         }
