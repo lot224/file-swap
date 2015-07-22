@@ -44,9 +44,9 @@ namespace lot224.FileSwap {
             if (sfd.ShowDialog() == DialogResult.OK) {
                 options.MasterFile = txtMaster.Text = sfd.FileName;
                 if (System.IO.File.Exists(sfd.FileName) == false) {
-                    FileStream fs = System.IO.File.Create(sfd.FileName);
+                    FileStream fs = File.Create(sfd.FileName);
                     fs.Close();
-                    fs.Dispose();
+                    //fs.Dispose();
                 }
             }
         }
