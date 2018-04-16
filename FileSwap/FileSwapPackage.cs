@@ -27,8 +27,7 @@ namespace lot224.FileSwap {
 
             options = (Options)GetDialogPage(typeof(Options));
 
-            OleMenuCommandService mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (null != mcs) {
+            if (GetService(typeof(IMenuCommandService)) is OleMenuCommandService mcs) {
                 CommandID menuCommandID = new CommandID(GuidList.guidFileSwapCmdSet, (int)PkgCmdIDList.cmdidFileSwapDropDown);
                 OleMenuCommand menuItem = new OleMenuCommand(new EventHandler(OnFileSwapDropDown), menuCommandID);
                 mcs.AddCommand(menuItem);
@@ -44,9 +43,8 @@ namespace lot224.FileSwap {
             if ((e == null) || (e == EventArgs.Empty))
                 return;
 
-            OleMenuCmdEventArgs eventArgs = e as OleMenuCmdEventArgs;
 
-            if (eventArgs != null) {
+            if (e is OleMenuCmdEventArgs eventArgs) {
                 object vIn = eventArgs.InValue;
                 IntPtr vOut = eventArgs.OutValue;
                 if (vIn == null && vOut != IntPtr.Zero) {
@@ -57,9 +55,8 @@ namespace lot224.FileSwap {
 
         // Event Fires when the dropdown is clicked.
         private void OnFileSwapDropDown(object sender, EventArgs e) {
-            OleMenuCmdEventArgs eventArgs = e as OleMenuCmdEventArgs;
 
-            if (eventArgs != null) {
+            if (e is OleMenuCmdEventArgs eventArgs) {
 
                 string vIn = eventArgs.InValue as string;
                 IntPtr vOut = eventArgs.OutValue;
@@ -78,17 +75,17 @@ namespace lot224.FileSwap {
                         }
                         if (index > -1) {
                             if (index == items.Length - 1) {
-                                showOptions();
-                            } else if(vIn != options.Current) {
+                                ShowOptions();
+                            } else if (vIn != options.Current) {
                                 options.SwapFile(vIn);
-                                log(string.Format("Updated {0} to {1}", options.MasterFile, vIn));
+                                Log(string.Format("Updated {0} to {1}", options.MasterFile, vIn));
                                 if (options.RecycleAppPools) {
                                     ServerManager serverManager = new ServerManager();
                                     ApplicationPoolCollection appPools = serverManager.ApplicationPools;
                                     foreach (ApplicationPool ap in appPools) {
                                         if (ap.WorkerProcesses.Count > 0) {
                                             ap.Recycle();
-                                            log(string.Format("Recycled ({0}) App Pool.", ap.Name));
+                                            Log(string.Format("Recycled ({0}) App Pool.", ap.Name));
                                         }
                                     }
                                 }
@@ -110,7 +107,7 @@ namespace lot224.FileSwap {
             return nResult.ToArray();
         }
 
-        private void showOptions() {
+        private void ShowOptions() {
             string target = "40A2E3AD-28DC-43BF-BA78-058BA6EF29DB";
             var command = new CommandID(VSConstants.GUID_VSStandardCommandSet97, VSConstants.cmdidToolsOptions);
             var mcs = GetService(typeof(IMenuCommandService)) as MenuCommandService;
@@ -118,7 +115,7 @@ namespace lot224.FileSwap {
         }
 
         internal IVsOutputWindowPane pane = null;
-        private void log(string msg) {
+        private void Log(string msg) {
             if (this.pane == null) {
                 IVsOutputWindow outputWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
                 Guid guidGeneral = Microsoft.VisualStudio.VSConstants.OutputWindowPaneGuid.GeneralPane_guid;
